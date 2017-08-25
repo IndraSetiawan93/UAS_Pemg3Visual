@@ -23,8 +23,56 @@ public class FrmCuaca extends javax.swing.JFrame {
      */
     public FrmCuaca() {
         initComponents();
+        
+        //tampi_combo();
     }
-
+    public void tampi_combo(){
+    Connection con = new conek().getConnection(); 
+        try
+        {
+            Statement statement = (Statement)con.createStatement();
+            statement.executeQuery("select date from t_cuaca where nama_kota='"+TxtKota.getText()+"' order by date asc");
+            con.createStatement();
+            ResultSet rs = statement.executeQuery("select date from t_cuaca where nama_kota='"+TxtKota.getText()+"' order by date asc");
+            
+            while(rs.next()){
+                //Object[] ob= new Object[8];
+                //ob[0] = rs.getString(2);
+                
+                cmbBox.addItem(rs.getString("date"));
+            }
+            rs.close(); con.createStatement().close();
+                      
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+               
+     }   
+    public void masuk_data(){
+    Connection con = new conek().getConnection(); 
+        try
+        {
+            Statement statement = (Statement)con.createStatement();
+            statement.executeQuery("select * from t_cuaca where date='"+cmbBox.getSelectedItem()+"'");
+            con.createStatement();
+            ResultSet rs = statement.executeQuery("select * from t_cuaca where date='"+cmbBox.getSelectedItem()+"'");
+            
+            while(rs.next()){
+                Suhu.setText(rs.getString("suhu"));
+                lblMak.setText(rs.getString("suhu_maks"));
+                lblMin.setText(rs.getString("suhu_min"));
+                lblKec.setText(rs.getString("kecepatan_angin"));
+                lblKeb.setText(rs.getString("kelembapan"));
+                lblTek.setText(rs.getString("tekanan_udara"));
+                lblTgl.setText(rs.getString("date"));
+            }
+            rs.close(); con.createStatement().close();
+                      
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+                
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,8 +83,14 @@ public class FrmCuaca extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblMonitor = new javax.swing.JLabel();
         ShMaks = new javax.swing.JLabel();
         ShMin = new javax.swing.JLabel();
         KcAngin = new javax.swing.JLabel();
@@ -53,24 +107,43 @@ public class FrmCuaca extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        cmbBox = new javax.swing.JComboBox<>();
+        lblTgl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         TxtKota = new javax.swing.JTextField();
         MenuUtama = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
+
+        jMenu3.setText("File");
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("File");
+        jMenuBar2.add(jMenu5);
+
+        jMenu6.setText("Edit");
+        jMenuBar2.add(jMenu6);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Monitor Cuaca");
+        lblMonitor.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblMonitor.setText("Monitor Cuaca");
 
         ShMaks.setText("Suhu Maksimum");
 
@@ -95,17 +168,22 @@ public class FrmCuaca extends javax.swing.JFrame {
 
         jLabel7.setText("C");
 
+        cmbBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih tanggal" }));
+        cmbBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxActionPerformed(evt);
+            }
+        });
+
+        lblTgl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(jLabel2)
-                .addContainerGap(188, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(Suhu, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Suhu, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(KcAngin)
@@ -130,15 +208,25 @@ public class FrmCuaca extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel7))
                 .addGap(78, 78, 78))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTgl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblMonitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMonitor)
+                    .addComponent(cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
@@ -150,7 +238,9 @@ public class FrmCuaca extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(87, 87, 87))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(4, 4, 4)
+                        .addComponent(lblTgl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Suhu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -200,6 +290,14 @@ public class FrmCuaca extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
+        jMenuItem6.setText("Tabel Data Cuaca");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -211,6 +309,21 @@ public class FrmCuaca extends javax.swing.JFrame {
 
         MenuUtama.add(jMenu1);
 
+        jMenu7.setText("Kelola");
+
+        jMenuItem8.setText("Kelola Data");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem8);
+
+        jMenuItem9.setText("Buat Akun");
+        jMenu7.add(jMenuItem9);
+
+        MenuUtama.add(jMenu7);
+
         jMenu2.setText("Help");
 
         jMenuItem2.setText("Help");
@@ -220,6 +333,14 @@ public class FrmCuaca extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+
+        jMenuItem7.setText("Koneksi Database");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
 
         jMenuItem4.setText("About");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -251,7 +372,7 @@ public class FrmCuaca extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(TxtKota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -265,7 +386,13 @@ public class FrmCuaca extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+         int ok=JOptionPane.showConfirmDialog(null,"Apakah yakin akan keluar aplikasi?", "Confirmation",JOptionPane.YES_NO_OPTION);
+        if(ok==0)
+        {
+            //dispose();
+            System.exit(0);
+        }
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -297,6 +424,7 @@ public class FrmCuaca extends javax.swing.JFrame {
                 lblKec.setText(rs.getString("kecepatan_angin"));
                 lblKeb.setText(rs.getString("kelembapan"));
                 lblTek.setText(rs.getString("tekanan_udara"));
+                lblTgl.setText(rs.getString("date"));
                 
             }
         }catch(Exception e)
@@ -328,6 +456,8 @@ public class FrmCuaca extends javax.swing.JFrame {
                 lblKec.setText(rs.getString("kecepatan_angin"));
                 lblKeb.setText(rs.getString("kelembapan"));
                 lblTek.setText(rs.getString("tekanan_udara"));
+                lblTgl.setText(rs.getString("date"));
+                lblMonitor.setText("Cuaca di "+TxtKota.getText()+"");
                 
             }
         }catch(Exception e)
@@ -340,6 +470,45 @@ public class FrmCuaca extends javax.swing.JFrame {
         // TODO add your handling code here:
         new DataCuaca().show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void cmbBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxActionPerformed
+        // TODO add your handling code here:
+        Connection con = new conek().getConnection(); 
+        try
+        {
+            Statement statement = (Statement)con.createStatement();
+            statement.executeQuery("select date from t_cuaca where nama_kota='"+TxtKota.getText()+"' order by date asc");
+            con.createStatement();
+           ResultSet rs = statement.executeQuery("select date from t_cuaca where nama_kota='"+TxtKota.getText()+"' order by date asc");
+           
+            while(rs.next()){
+                cmbBox.addItem(rs.getString("date"));               
+            }
+            rs.last();
+            int jumlahdata = rs.getRow();
+            rs.first();
+          
+        }catch(Exception e)
+        {
+         
+       }
+    masuk_data();
+    }//GEN-LAST:event_cmbBoxActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        new Kolom1().show();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        new flogin().show();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        new hpus().show();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,8 +554,8 @@ public class FrmCuaca extends javax.swing.JFrame {
     private javax.swing.JLabel Suhu;
     private javax.swing.JLabel TkUdara;
     private javax.swing.JTextField TxtKota;
+    private javax.swing.JComboBox<String> cmbBox;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -394,16 +563,29 @@ public class FrmCuaca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblKeb;
     private javax.swing.JLabel lblKec;
     private javax.swing.JLabel lblMak;
     private javax.swing.JLabel lblMin;
+    private javax.swing.JLabel lblMonitor;
     private javax.swing.JLabel lblTek;
+    private javax.swing.JLabel lblTgl;
     // End of variables declaration//GEN-END:variables
 }

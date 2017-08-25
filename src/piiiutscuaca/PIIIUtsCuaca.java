@@ -7,7 +7,7 @@ package piiiutscuaca;
 
 import piiiutscuaca.view.FrmCuaca;
 import piiiutscuaca.view.flogin;
-
+import piiiutscuaca.view.Autentikasi;
 /**
  * main class
  * @author hahn
@@ -21,7 +21,11 @@ public class PIIIUtsCuaca {
         // TODO code application logic here
         flogin login = new flogin();
         login.setLocationRelativeTo(null);
-        login.setVisible(true);
+        login.setVisible(false);
+        
+        Autentikasi logoon = new Autentikasi();
+        logoon.setLocationRelativeTo(null);
+        logoon.setVisible(true);
         
         //FrmCuaca frmCuaca = new FrmCuaca();
         //frmCuaca.setLocationRelativeTo(null);

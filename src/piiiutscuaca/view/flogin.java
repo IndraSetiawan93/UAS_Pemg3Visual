@@ -132,7 +132,7 @@ public class flogin extends javax.swing.JFrame {
             if(txtNama.getText().equals("root")){
                 if(txtPsw.getText().equals("manonjaya")){
                     JOptionPane.showMessageDialog(null, "Koneksi ke Database BERHASIL");
-                    new FrmCuaca().show();
+                    //new FrmCuaca().show();
                     this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(rootPane,"Password tidak sesuai");
@@ -165,7 +165,7 @@ public class flogin extends javax.swing.JFrame {
             if(txtNama.getText().equals("root")){
                 if(txtPsw.getText().equals("manonjaya")){
                     JOptionPane.showMessageDialog(null, "Koneksi ke Database BERHASIL");
-                    new FrmCuaca().show();
+                    //new FrmCuaca().show();
                     this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(rootPane,"Password tidak sesuai");

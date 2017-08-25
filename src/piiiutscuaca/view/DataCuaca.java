@@ -5,6 +5,7 @@
  */
 package piiiutscuaca.view;
 
+import com.sun.glass.events.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,6 +24,8 @@ public class DataCuaca extends javax.swing.JFrame {
      */
     public DataCuaca() {
         initComponents();
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
     }
 
     /**
@@ -50,6 +53,9 @@ public class DataCuaca extends javax.swing.JFrame {
         txtKecAngin = new javax.swing.JTextField();
         txttekanan = new javax.swing.JTextField();
         btcInput = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(20, 45));
@@ -71,10 +77,42 @@ public class DataCuaca extends javax.swing.JFrame {
 
         jLabel9.setText("Tekanan udara");
 
+        txtnamkot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnamkotActionPerformed(evt);
+            }
+        });
+        txtnamkot.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtnamkotKeyPressed(evt);
+            }
+        });
+
         btcInput.setText("INPUT");
         btcInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btcInputActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setText("EDIT");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnHapus.setText("HAPUS");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("KELUAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -88,25 +126,38 @@ public class DataCuaca extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(38, 38, 38)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnHapus)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txttekanan, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtKecAngin)
-                                .addComponent(txtnamkot)
-                                .addComponent(txtsuhu)
-                                .addComponent(txtsuhumak)
-                                .addComponent(txtSuhuMin)
-                                .addComponent(txtkelembapan, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                            .addComponent(btcInput))))
-                .addGap(0, 144, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btcInput)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEdit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txttekanan, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtKecAngin)
+                                        .addComponent(txtnamkot)
+                                        .addComponent(txtsuhu)
+                                        .addComponent(txtsuhumak)
+                                        .addComponent(txtSuhuMin)
+                                        .addComponent(txtkelembapan, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +197,11 @@ public class DataCuaca extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(txttekanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btcInput)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btcInput)
+                    .addComponent(btnEdit)
+                    .addComponent(btnHapus)
+                    .addComponent(jButton1))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -186,6 +241,211 @@ public class DataCuaca extends javax.swing.JFrame {
       
     }//GEN-LAST:event_btcInputActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        String nama_kota=txtnamkot.getText();
+        String suhu=txtsuhu.getText();
+        String suhumk=txtsuhumak.getText();
+        String suhumn=txtSuhuMin.getText();
+        String kelembapan=txtkelembapan.getText();
+        String kecepatan=txtKecAngin.getText();
+        String tekanan=txttekanan.getText();
+        
+        if(btnEdit.getText()== "EDIT"){
+            txtnamkot.enable(true);
+            txtsuhu.enable(true);
+            txtsuhumak.enable(true);
+            txtSuhuMin.enable(true);
+            txtKecAngin.enable(true);
+            txtkelembapan.enable(true);
+            txttekanan.enable(true);
+            btnEdit.setText("SIMPAN");
+            btnHapus.setEnabled(false);
+        }else{
+       
+        
+        Connection con = new conek().getConnection();
+                
+        try{
+            Statement statement = (Statement)con.createStatement();
+            statement.executeUpdate("UPDATE T_CUACA SET nama_kota='"
+                    +nama_kota+"',"
+                    +"suhu_maks='"
+                    + suhumk+"',"
+                    +"suhu_min='"
+                    +suhumn+"',"
+                    +"kelembapan='"
+                    +kelembapan+"',"
+                    +"kecepatan_angin='"
+                    +kecepatan+"',"
+                    +"tekanan_udara='"
+                    +tekanan+"'"
+                    +"where suhu='"
+                    +suhu+"'");
+            
+            statement.close();
+            JOptionPane.showMessageDialog(null, "Data berhasil di edit");
+                txtnamkot.enable(false);
+                txtsuhu.enable(false);
+                txtsuhumak.enable(false);
+                txtSuhuMin.enable(false);
+                txtKecAngin.enable(false);
+                txtkelembapan.enable(false);
+                txttekanan.enable(false);
+                
+                btnEdit.setText("EDIT");
+                btnHapus.setEnabled(true);
+                
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Data belum tersimpan");
+        }
+        } 
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        Connection con = new conek().getConnection();
+        int ok=JOptionPane.showConfirmDialog(null,"Apakah yakin ingin menghapus data ini???", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (ok==0)
+        {
+        try{
+            Statement statement = (Statement)con.createStatement();
+            statement.executeUpdate("delete from T_CUACA where nama_kota='"+txtnamkot.getText()+"'");
+            statement.close();
+            JOptionPane.showMessageDialog(null, "Data dihapus");
+            txtnamkot.setText("");
+            txtsuhu.setText("");
+            txtsuhumak.setText("");
+            txtSuhuMin.setText("");
+            txtKecAngin.setText("");
+            txtkelembapan.setText("");
+            txttekanan.setText("");
+            txtnamkot.requestFocus();
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Data belum terhapus");
+        }
+        
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void txtnamkotKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnamkotKeyPressed
+        // TODO add your handling code here:
+        Connection con = new conek().getConnection();
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+             try
+        {
+            Statement statement = (Statement)con.createStatement();
+            statement.executeQuery("select * from t_cuaca where nama_kota='"+txtnamkot.getText()+"'");
+            con.createStatement();
+            ResultSet rs = statement.executeQuery("select * from t_cuaca where nama_kota='"+txtnamkot.getText()+"'");
+            if (rs.next())
+                
+                while(rs.next()){
+                //If(txtnamkot.getText().equals(rs.getString("nama_kota")))
+                //JOptionPane.showMessageDialog(rootPane, "Kota itu tidak ");
+                  //  else
+                txtsuhu.setText(rs.getString("suhu"));
+                txtsuhumak.setText(rs.getString("suhu_maks"));
+                txtSuhuMin.setText(rs.getString("suhu_min"));
+                txtKecAngin.setText(rs.getString("kecepatan_angin"));
+                txtkelembapan.setText(rs.getString("kelembapan"));
+                txttekanan.setText(rs.getString("tekanan_udara"));
+                
+                txtnamkot.enable(false);
+                txtsuhu.enable(false);
+                txtsuhumak.enable(false);
+                txtSuhuMin.enable(false);
+                txtKecAngin.enable(false);
+                txtkelembapan.enable(false);
+                txttekanan.enable(false);
+                
+                
+                btcInput.setEnabled(false);
+                btnEdit.setEnabled(true);
+                btnHapus.setEnabled(true);
+            }
+        }catch(Exception e)
+            
+        {
+         
+        }
+                //  btcInput.setEnabled(false);
+                //  btnEdit.setEnabled(true);
+                //  btnHapus.setEnabled(true);
+        }//else{
+           // JOptionPane.showMessageDialog(rootPane,"Kota itu tidak sesuai");
+             //       JOptionPane.showMessageDialog(null, "Coba ulang Kota lain");
+              //      txtnamkot.setText("");
+              //      txtnamkot.requestFocus();
+        
+    }//GEN-LAST:event_txtnamkotKeyPressed
+
+    private void txtnamkotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamkotActionPerformed
+        // TODO add your handling code here:
+            // TODO add your handling code here:
+        Connection con = new conek().getConnection();
+        //if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+             try
+        {
+            Statement statement = (Statement)con.createStatement();
+            statement.executeQuery("select * from t_cuaca where nama_kota='"+txtnamkot.getText()+"'");
+            con.createStatement();
+            ResultSet rs = statement.executeQuery("select * from t_cuaca where nama_kota='"+txtnamkot.getText()+"'");
+               // if(txtnamkot.getText().equals(rs.getString("nama_kota"))){
+                //JOptionPane.showMessageDialog(rootPane, "Kota itu tidak");
+            //}//else
+               
+            while(rs.next()){
+            
+                txtsuhu.setText(rs.getString("suhu"));
+                txtsuhumak.setText(rs.getString("suhu_maks"));
+                txtSuhuMin.setText(rs.getString("suhu_min"));
+                txtKecAngin.setText(rs.getString("kecepatan_angin"));
+                txtkelembapan.setText(rs.getString("kelembapan"));
+                txttekanan.setText(rs.getString("tekanan_udara")); 
+                
+                txtnamkot.enable(false);
+                txtsuhu.enable(false);
+                txtsuhumak.enable(false);
+                txtSuhuMin.enable(false);
+                txtKecAngin.enable(false);
+                txtkelembapan.enable(false);
+                txttekanan.enable(false);
+                
+                btcInput.setEnabled(false);
+                btnEdit.setEnabled(true);
+                btnHapus.setEnabled(true);
+                
+            
+            }
+        }catch(Exception e)
+            
+        { e.printStackTrace();
+         
+        
+        //}else{
+            
+            JOptionPane.showMessageDialog(rootPane,"Kota itu tidak sesuai");
+                  JOptionPane.showMessageDialog(null, "Coba ulang Kota lain");
+                  txtnamkot.setText("");
+                  txtnamkot.requestFocus();
+                  //btcInput.setEnabled(false);
+                  //btnEdit.setEnabled(true);
+                  //btnHapus.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_txtnamkotActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //int ok=JOptionPane.showConfirmDialog(null,"Apakah yakin akan keluar ?", "Comfirmation",JOptionPane.YES_NO_OPTION);
+        //if(ok==0)
+        {
+            dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -223,6 +483,9 @@ public class DataCuaca extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btcInput;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
